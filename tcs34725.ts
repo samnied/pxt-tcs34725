@@ -49,11 +49,11 @@ const TCS34725_REGISTER_BDATAH = 0x1B		// Blue data high byte
 
 // Parameters for setting the internal integration time of the RGBC clear and IR channel.
 enum TCS34725_ATIME {
-    ATIME_2_4_MS = 0xFF,    // 1 2.4 ms 1024
-    ATIME_24_MS = 0xF6,     // 10 24 ms 10240
-    ATIME_100_MS = 0xD5,    // 42 101 ms 43008
-    ATIME_154_MS = 0xC0,    // 64 154 ms 65535
-    ATIME_700_MS = 0x00     // 256 700 ms 65535
+    TIME_2_4_MS = 0xFF,    // 1 2.4 ms 1024
+    TIME_24_MS = 0xF6,     // 10 24 ms 10240
+    TIME_100_MS = 0xD5,    // 42 101 ms 43008
+    TIME_154_MS = 0xC0,    // 64 154 ms 65535
+    TIME_700_MS = 0x00     // 256 700 ms 65535
 }
 
 // Parameters for setting the wait time register.
@@ -93,10 +93,10 @@ enum TCS34725_APERS {
 
 // Parameters for setting the gain of the sensor.
 enum TCS34725_AGAIN {
-    AGAIN_1X = 0x0,      // 1x gain
-    AGAIN_4X = 0x1,      // 4x gain
-    AGAIN_16X = 0x2,      // 16x gain
-    AGAIN_60X = 0x3       // 60x gain
+    GAIN_1X = 0x0,      // 1x gain
+    GAIN_4X = 0x1,      // 4x gain
+    GAIN_16X = 0x2,      // 16x gain
+    GAIN_60X = 0x3       // 60x gain
 }
 
 /* #endregion */
@@ -180,23 +180,23 @@ namespace TCS34725 {
 
     export function pauseSensorForIntegrationTime(atime: TCS34725_ATIME) {
         switch (atime) {
-            case TCS34725_ATIME.ATIME_2_4_MS: {
+            case TCS34725_ATIME.TIME_2_4_MS: {
                 basic.pause(2.4);
                 break;
             }
-            case TCS34725_ATIME.ATIME_24_MS: {
+            case TCS34725_ATIME.TIME_24_MS: {
                 basic.pause(24);
                 break;
             }
-            case TCS34725_ATIME.ATIME_100_MS: {
+            case TCS34725_ATIME.TIME_100_MS: {
                 basic.pause(100);
                 break;
             }
-            case TCS34725_ATIME.ATIME_154_MS: {
+            case TCS34725_ATIME.TIME_154_MS: {
                 basic.pause(154);
                 break;
             }
-            case TCS34725_ATIME.ATIME_700_MS: {
+            case TCS34725_ATIME.TIME_700_MS: {
                 basic.pause(700);
                 break;
             }
@@ -241,7 +241,7 @@ namespace TCS34725 {
         gainSensorValue = gain;
     }
 
-    //% blockId="start_colorSensor" block="Start Sensor with %atime %gain"
+    //% blockId="start_colorSensor" block="Start sensor with integration time %atime and %gain"
     export function start(atime: TCS34725_ATIME, gain: TCS34725_AGAIN) {
 
         while (!isConnected) {
