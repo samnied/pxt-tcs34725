@@ -11,6 +11,7 @@ const TCS34725_REGISTER_AIEN_ENABLE = 0x10	// RGBC interrupt enable. When assert
 const TCS34725_REGISTER_WEN_ENABLE = 0x08	// Wait enable. This bit activates the wait feature. Writing a 1 activates the wait timer. Writing a 0 disables the wait timer.
 const TCS34725_REGISTER_AEN_ENABLE = 0x02	// RGBC enable. This bit actives the two-channel ADC. Writing a 1 activates the RGBC. Writing a 0 disables the RGBC.
 const TCS34725_REGISTER_PON_ENABLE = 0x01	// Power ON. This bit activates the internal oscillator to permit the timers and ADC channels to operate. Writing a 1 activates the oscillator. Writing a 0 disables the oscillator
+const TCS34725_REGISTER_RESET = 0x66	
 
 const TCS34725_REGISTER_ATIME = 0x01		// The RGBC timing register controls the internal integration time of the RGBC clear and IR channel ADCs in 2.4-ms increments.
 const TCS34725_REGISTER_WTIME = 0x03		// Wait time is set 2.4 ms increments unless the WLONG bit is asserted, in which case the wait times are 12× longer. WTIME is programmed as a 2’s complement number.
@@ -161,6 +162,10 @@ namespace TCS34725 {
             isConnected = true;
     }
 
+    export function reset() {
+        pins.i2cWriteBuffer(TCS34725_I2C_ADDR, ( TCS34725_REGISTER_COMMAND | TCS34725_REGISTER_RESET) & 0xFF);
+    }
+    
     export function turnSensorOn(atime: TCS34725_ATIME) {
 
         //REGISTER FORMAT:   CMD | TRANSACTION | ADDRESS
